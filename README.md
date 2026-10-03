@@ -149,8 +149,4 @@ python src/qeval/zx/translation/scripts/run_zx_eval.py --dry-run --out-root resu
 
 Remove `--dry-run` only inside a disposable evaluation environment.
 
-## Citation and Reuse
 
-Please cite the associated QEval paper. No reuse license is declared in this
-artifact snapshot; add a license only after redistribution rights for the code
-and data have been confirmed.
