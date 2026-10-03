@@ -1,0 +1,32 @@
+# EVAL_META: task_id=67, framework=qpanda, class=1
+import numpy as np
+from pyqpanda3.core import *
+
+
+def chsh_circuit(alice, bob):
+    machine = CPUQVM()
+    machine.init_qvm()
+    q = machine.qAlloc_many(2)
+    c = machine.cAlloc_many(2)
+
+    prog = QProg()
+    prog << H(q[0]) << CNOT(q[0], q[1])
+    prog << BARRIER(q)
+
+    if alice == 0:
+        prog << RY(q[0], 0.0)
+    else:
+        prog << RY(q[0], -np.pi / 2)
+
+    prog << Measure(q[0], c[0])
+
+    if bob == 0:
+        prog << RY(q[1], -np.pi / 4)
+    else:
+        prog << RY(q[1], np.pi / 4)
+
+    prog << Measure(q[1], c[1])
+
+    # Keep a reference to the machine to prevent garbage collection
+    prog.machine = machine
+    return prog

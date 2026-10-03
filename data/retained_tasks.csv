@@ -1,0 +1,79 @@
+task_id,class_id,class_name
+1,1,Sampling
+14,1,Sampling
+15,1,Sampling
+24,1,Sampling
+28,1,Sampling
+31,1,Sampling
+37,1,Sampling
+40,1,Sampling
+47,1,Sampling
+52,1,Sampling
+53,1,Sampling
+54,1,Sampling
+55,1,Sampling
+56,1,Sampling
+61,1,Sampling
+64,1,Sampling
+67,1,Sampling
+68,1,Sampling
+77,1,Sampling
+92,1,Sampling
+2,2,State Preparation
+3,2,State Preparation
+5,2,State Preparation
+6,2,State Preparation
+11,2,State Preparation
+39,2,State Preparation
+62,2,State Preparation
+66,2,State Preparation
+139,2,State Preparation
+0,3,Quantum Operation
+4,3,Quantum Operation
+7,3,Quantum Operation
+8,3,Quantum Operation
+9,3,Quantum Operation
+10,3,Quantum Operation
+12,3,Quantum Operation
+13,3,Quantum Operation
+23,3,Quantum Operation
+26,3,Quantum Operation
+27,3,Quantum Operation
+36,3,Quantum Operation
+38,3,Quantum Operation
+41,3,Quantum Operation
+44,3,Quantum Operation
+49,3,Quantum Operation
+50,3,Quantum Operation
+57,3,Quantum Operation
+58,3,Quantum Operation
+59,3,Quantum Operation
+60,3,Quantum Operation
+65,3,Quantum Operation
+69,3,Quantum Operation
+70,3,Quantum Operation
+71,3,Quantum Operation
+73,3,Quantum Operation
+78,3,Quantum Operation
+81,3,Quantum Operation
+84,3,Quantum Operation
+86,3,Quantum Operation
+89,3,Quantum Operation
+90,3,Quantum Operation
+99,3,Quantum Operation
+105,3,Quantum Operation
+106,3,Quantum Operation
+108,3,Quantum Operation
+109,3,Quantum Operation
+110,3,Quantum Operation
+112,3,Quantum Operation
+116,3,Quantum Operation
+117,3,Quantum Operation
+118,3,Quantum Operation
+119,3,Quantum Operation
+120,3,Quantum Operation
+125,3,Quantum Operation
+126,3,Quantum Operation
+130,3,Quantum Operation
+145,3,Quantum Operation
+147,3,Quantum Operation

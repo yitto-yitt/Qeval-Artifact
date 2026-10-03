@@ -1,0 +1,18 @@
+# EVAL_META: task_id=49, framework=qpanda2, class=3
+from pyqpanda import *
+
+machine = CPUQVM()
+machine.init_qvm()
+qubits = machine.qAlloc_many(2)
+
+def simple_elitzur_vaidman():
+    circuit = create_empty_circuit()
+    circuit << H(qubits[0])
+    circuit << CNOT(qubits[0], qubits[1])
+    circuit << H(qubits[0])
+    return circuit
+
+if __name__ == "__main__":
+    circ = simple_elitzur_vaidman()
+    print(circ)
+    machine.finalize()

@@ -1,0 +1,26 @@
+# EVAL_META: task_id=53, framework=qpanda2, class=1
+import builtins
+import pyqpanda as pq
+
+
+def xor_gate(a, b):
+    qvm = pq.CPUQVM()
+    qvm.init_qvm()
+    try:
+        qubits = qvm.qAlloc_many(8)
+        cbits = qvm.cAlloc_many(8)
+        program = pq.QProg()
+
+        for value in (a, b):
+            for i in range(8):
+                if (value >> i) & 1:
+                    program << pq.X(qubits[i])
+
+        for i in range(8):
+            program << pq.Measure(qubits[i], cbits[i])
+
+        counts = qvm.run_with_configuration(program, cbits, 1024)
+        total = builtins.sum(counts.values())
+        return {key: count / total for key, count in counts.items()}
+    finally:
+        qvm.finalize()

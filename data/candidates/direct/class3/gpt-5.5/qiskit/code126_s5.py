@@ -1,0 +1,10 @@
+# EVAL_META: task_id=126, framework=qiskit, class=3
+import numpy as np
+from qiskit.circuit.library import HGate
+from qiskit.quantum_info import Operator, process_fidelity
+
+
+def calculate_phase_difference_fidelity():
+    hadamard_operator = Operator(HGate())
+    phased_hadamard_operator = Operator(np.exp(1j * np.pi / 3) * hadamard_operator.data)
+    return process_fidelity(hadamard_operator, phased_hadamard_operator)

@@ -1,0 +1,22 @@
+# EVAL_META: task_id=54, framework=qiskit, class=1
+from qiskit import QuantumCircuit
+from qiskit_aer import AerSimulator
+
+
+def and_gate(a, b):
+    qc = QuantumCircuit(9, 3)
+    for i in range(3):
+        if (a >> i) & 1:
+            qc.x(i)
+        if (b >> i) & 1:
+            qc.x(3 + i)
+    for i in range(3):
+        qc.ccx(i, 3 + i, 6 + i)
+    for i in range(3):
+        qc.measure(6 + i, i)
+
+    sim = AerSimulator()
+    shots = 4096
+    result = sim.run(qc, shots=shots).result()
+    counts = result.get_counts()
+    return {k: v / shots for k, v in counts.items()}

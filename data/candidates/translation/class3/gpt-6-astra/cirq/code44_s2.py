@@ -1,0 +1,8 @@
+# EVAL_META: task_id=44, framework=cirq, class=3
+import cirq
+
+def tensor_circuits():
+    q0, q1, q2 = cirq.LineQubit.range(3)
+    top = cirq.Circuit(cirq.X(q0))
+    bottom = cirq.Circuit(cirq.ry(0.2)(q2).controlled_by(q1))
+    return top + bottom

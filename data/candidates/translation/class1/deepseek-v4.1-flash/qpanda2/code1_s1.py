@@ -1,0 +1,19 @@
+# EVAL_META: task_id=1, framework=qpanda2, class=1
+import builtins
+from pyqpanda import *
+
+def run_bell_state_simulator():
+    qvm = CPUQVM()
+    qvm.init_qvm()
+    qubits = qvm.qAlloc_many(2)
+    cbits = qvm.cAlloc_many(2)
+    prog = QProg()
+    prog << H(qubits[0]) << CNOT(qubits[0], qubits[1])
+    prog << Measure(qubits[0], cbits[0])
+    prog << Measure(qubits[1], cbits[1])
+    shots = 1000
+    counts = qvm.run_with_configuration(prog, cbits, shots)
+    total = builtins.sum(counts.values())
+    probs = {key: value / total for key, value in counts.items()}
+    qvm.finalize()
+    return probs

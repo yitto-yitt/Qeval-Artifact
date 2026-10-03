@@ -1,0 +1,17 @@
+# EVAL_META: task_id=38, framework=qpanda2, class=3
+import atexit
+from pyqpanda import CPUQVM, QCircuit, H, RZ, RY
+
+machine = CPUQVM()
+machine.init_qvm()
+q = machine.qAlloc_many(2)
+
+def create_quantum_circuit_based_h0_crz01_h1_cry10(theta):
+    qc = QCircuit()
+    qc << H(q[0])
+    qc << RZ(q[1], theta).control([q[0]])
+    qc << H(q[1])
+    qc << RY(q[0], theta).control([q[1]])
+    return qc
+
+atexit.register(machine.finalize)

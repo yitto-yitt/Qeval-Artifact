@@ -1,0 +1,15 @@
+# EVAL_META: task_id=3, framework=pennylane, class=2
+import pennylane as qml
+
+
+def create_ghz(drawing=False):
+    def circuit():
+        qml.Hadamard(wires=0)
+        qml.CNOT(wires=[0, 1])
+        qml.CNOT(wires=[0, 2])
+        return qml.counts()
+    dev = qml.device("default.qubit", wires=3, shots=1024)
+    qnode = qml.QNode(circuit, dev)
+    if drawing:
+        return qnode, qml.draw_mpl(qnode)()
+    return qnode

@@ -1,0 +1,17 @@
+# EVAL_META: task_id=47, framework=qpanda, class=1
+from pyqpanda3.core import CPUQVM, QProg, H, Measure
+
+def random_coin_flip(samples):
+    qvm = CPUQVM()
+    qvm.init_qvm()
+    q = qvm.qAlloc_many(1)
+    c = qvm.cAlloc_many(1)
+    prog = QProg()
+    prog << H(q[0])
+    prog << Measure(q[0], c[0])
+    result = qvm.run(prog, samples)
+    counts = result.get_counts()
+    counts = {str(k): v for k, v in counts.items()}
+    total = sum(counts.values())
+    qvm.finalize()
+    return {'Heads': counts.get('0', 0) / total, 'Tails': counts.get('1', 0) / total}

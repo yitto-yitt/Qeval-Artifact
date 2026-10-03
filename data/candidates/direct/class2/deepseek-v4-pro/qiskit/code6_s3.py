@@ -1,0 +1,9 @@
+# EVAL_META: task_id=6, framework=qiskit, class=2
+from qiskit import QuantumCircuit
+
+
+def create_state_prep(num_qubits):
+    """Prepare the computational basis state |1> on an n-qubit register."""
+    qc = QuantumCircuit(num_qubits)
+    qc.x(0)
+    return qc

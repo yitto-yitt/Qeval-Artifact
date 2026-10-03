@@ -1,0 +1,7 @@
+# EVAL_META: task_id=117, framework=qiskit, class=3
+from qiskit.synthesis.two_qubit import TwoQubitBasisDecomposer
+from qiskit.circuit.library import CXGate
+
+def decompose_unitary(unitary):
+    decomposer = TwoQubitBasisDecomposer(CXGate())
+    return decomposer(unitary)

@@ -1,0 +1,6 @@
+-r requirements-base.txt
+numpy
+qiskit
+qiskit-aer
+qiskit-ibm-runtime
+matplotlib

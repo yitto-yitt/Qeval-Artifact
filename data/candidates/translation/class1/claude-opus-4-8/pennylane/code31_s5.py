@@ -1,0 +1,20 @@
+# EVAL_META: task_id=31, framework=pennylane, class=1
+from typing import Dict
+import pennylane as qml
+
+def sampler_qiskit():
+    dev = qml.device("default.qubit", wires=2, shots=1024, seed=42)
+
+    @qml.qnode(dev)
+    def circuit():
+        qml.Hadamard(wires=0)
+        qml.CNOT(wires=[0, 1])
+        return qml.counts(all_outcomes=True)
+
+    counts = circuit()
+    total = sum(counts.values())
+    result = {}
+    for key, value in counts.items():
+        if value > 0:
+            result[str(key)] = value / total
+    return result

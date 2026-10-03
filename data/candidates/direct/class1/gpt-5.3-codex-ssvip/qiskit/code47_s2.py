@@ -1,0 +1,22 @@
+# EVAL_META: task_id=47, framework=qiskit, class=1
+from qiskit import QuantumCircuit
+from qiskit_aer import AerSimulator
+
+
+def random_coin_flip(samples):
+    shots = int(samples)
+    if shots <= 0:
+        return {"Heads": 0.0, "Tails": 0.0}
+
+    qc = QuantumCircuit(1, 1)
+    qc.h(0)
+    qc.measure(0, 0)
+
+    simulator = AerSimulator()
+    result = simulator.run(qc, shots=shots).result()
+    counts = result.get_counts(qc)
+
+    tails = counts.get("0", 0) / shots
+    heads = counts.get("1", 0) / shots
+
+    return {"Heads": heads, "Tails": tails}

@@ -1,0 +1,49 @@
+{
+  "classes": {
+    "type1": {
+      "output_label": "class1",
+      "script": "verifiers/type1_verify.py",
+      "std_dir": "../../../../data/references/translation/class1",
+      "outputs_dirs": {
+        "cirq": "../../../../data/candidates/translation/class1",
+        "qpanda": "../../../../data/candidates/translation/class1",
+        "pennylane": "../../../../data/candidates/translation/class1"
+      },
+      "pattern_a": "code{idx}.py",
+      "pattern_b": "code{idx}.py",
+      "report_csv": "class1-zx-report.csv",
+      "framework_a": "qiskit",
+      "frameworks": ["cirq", "qpanda", "pennylane"]
+    },
+    "type2": {
+      "output_label": "class2",
+      "script": "verifiers/type2_verify.py",
+      "std_dir": "../../../../data/references/translation/class2",
+      "outputs_dirs": {
+        "cirq": "../../../../data/candidates/translation/class2",
+        "qpanda": "../../../../data/candidates/translation/class2",
+        "pennylane": "../../../../data/candidates/translation/class2"
+      },
+      "pattern_a": "code{idx}.py",
+      "pattern_b": "code{idx}.py",
+      "report_csv": "class2-zx-report.csv",
+      "framework_a": "qiskit",
+      "frameworks": ["cirq", "qpanda", "pennylane"]
+    },
+    "type3": {
+      "output_label": "class3",
+      "script": "verifiers/type3_verify.py",
+      "std_dir": "../../../../data/references/translation/class3",
+      "outputs_dirs": {
+        "cirq": "../../../../data/candidates/translation/class3",
+        "qpanda": "../../../../data/candidates/translation/class3",
+        "pennylane": "../../../../data/candidates/translation/class3"
+      },
+      "pattern_a": "code{idx}.py",
+      "pattern_b": "code{idx}.py",
+      "report_csv": "class3-zx-report.csv",
+      "framework_a": "qiskit",
+      "frameworks": ["cirq", "qpanda", "pennylane"]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+# EVAL_META: task_id=27, framework=cirq, class=3
+import cirq
+from cirq.contrib.circuitdag import CircuitDag
+
+
+def apply_op_back():
+    q = cirq.LineQubit.range(3)
+    circuit = cirq.Circuit(cirq.H(q[0]), cirq.CNOT(q[0], q[1]))
+    dag = CircuitDag.from_circuit(circuit)
+    dag.append(cirq.H(q[0]))
+    return dag

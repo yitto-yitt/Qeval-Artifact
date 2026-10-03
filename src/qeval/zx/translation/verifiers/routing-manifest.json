@@ -1,0 +1,399 @@
+{
+  "overrides": [
+    {
+      "source_class": "type1",
+      "task_id": 37,
+      "verification_mode": "type1",
+      "entry_fn_a": "bv_algorithm",
+      "entry_fn_b": "bv_algorithm",
+      "arg_cases": [
+        {
+          "label": "all_zero",
+          "arg_spec": {
+            "s": "0"
+          }
+        },
+        {
+          "label": "nontrivial",
+          "arg_spec": {
+            "s": "110"
+          }
+        }
+      ],
+      "reason": "bv_algorithm is compared per raw case hidden bitstring."
+    },
+    {
+      "source_class": "type1",
+      "task_id": 52,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "arg_cases": [
+        {
+          "label": "bits_00",
+          "arg_spec": {
+            "bitstring": "00"
+          }
+        },
+        {
+          "label": "bits_01",
+          "arg_spec": {
+            "bitstring": "01"
+          }
+        },
+        {
+          "label": "bits_10",
+          "arg_spec": {
+            "bitstring": "10"
+          }
+        },
+        {
+          "label": "bits_11",
+          "arg_spec": {
+            "bitstring": "11"
+          }
+        }
+      ],
+      "reason": "Type 1 directory sample returns a circuit-like object; verify with Type 3 circuit extraction per raw bitstring case."
+    },
+    {
+      "source_class": "type1",
+      "task_id": 61,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "reason": "Type 1 directory sample returns a circuit-like object; verify with Type 3 circuit extraction."
+    },
+    {
+      "source_class": "type1",
+      "task_id": 64,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "arg_cases": [
+        {
+          "label": "zero_secret",
+          "arg_spec": {
+            "s": "00"
+          }
+        },
+        {
+          "label": "nontrivial_secret",
+          "arg_spec": {
+            "s": "110"
+          }
+        }
+      ],
+      "reason": "Type 1 directory sample returns a circuit-like object; verify with Type 3 circuit extraction per raw secret case."
+    },
+    {
+      "source_class": "type1",
+      "task_id": 67,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "arg_cases": [
+        {
+          "label": "alice0_bob0",
+          "arg_spec": {
+            "alice": 0,
+            "bob": 0
+          }
+        },
+        {
+          "label": "alice0_bob1",
+          "arg_spec": {
+            "alice": 0,
+            "bob": 1
+          }
+        },
+        {
+          "label": "alice1_bob0",
+          "arg_spec": {
+            "alice": 1,
+            "bob": 0
+          }
+        },
+        {
+          "label": "alice1_bob1",
+          "arg_spec": {
+            "alice": 1,
+            "bob": 1
+          }
+        }
+      ],
+      "reason": "Type 1 directory sample returns a circuit-like object; verify with Type 3 circuit extraction per raw CHSH setting."
+    },
+    {
+      "source_class": "type1",
+      "task_id": 77,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "arg_cases": [
+        {
+          "label": "deterministic",
+          "arg_spec": {
+            "probability_dist": {
+              "kind": "int_key_dict",
+              "items": [
+                [0, 1.0]
+              ]
+            }
+          }
+        },
+        {
+          "label": "nonuniform",
+          "arg_spec": {
+            "probability_dist": {
+              "kind": "int_key_dict",
+              "items": [
+                [0, 0.25],
+                [1, 0.75]
+              ]
+            }
+          }
+        }
+      ],
+      "reason": "Type 1 directory sample returns a circuit-like object; verify with Type 3 circuit extraction per raw distribution case."
+    },
+    {
+      "source_class": "type1",
+      "task_id": 92,
+      "verification_mode": "type2",
+      "extractor": "capture_state_constructor_input",
+      "expected_outcome": "ZX_IF_CAPTURED_ELSE_NOT_APPLICABLE",
+      "reason": "Returns probabilities from StabilizerState(qc); compare by capturing the constructor input circuit when possible."
+    },
+
+    {
+      "source_class": "type2",
+      "task_id": 2,
+      "verification_mode": "type2",
+      "expected_outcome": "NOT_APPLICABLE",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 3,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "reason": "Type 2 directory sample returns a circuit-like object; verify with Type 3 circuit extraction."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 5,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "reason": "Type 2 directory sample returns a circuit-like object; verify with Type 3 circuit extraction."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 6,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "reason": "Type 2 directory sample returns a circuit-like object; verify with Type 3 circuit extraction."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 11,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 39,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 62,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "arg_spec": {
+        "state": [1, 0, 1],
+        "basis": [0, 1, 0]
+      },
+      "reason": "Type 2 directory sample returns a circuit-like object and needs stable BB84 state/basis inputs."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 66,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "reason": "Type 2 directory sample returns a circuit-like object; verify with Type 3 circuit extraction."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 83,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 136,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 137,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 138,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 139,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 142,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 143,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+    {
+      "source_class": "type2",
+      "task_id": 144,
+      "verification_mode": "type2",
+      "reason": "Analytical state/vector style sample; use Type 2 capture and mark not applicable when no circuit is available."
+    },
+
+    {
+      "source_class": "type3",
+      "task_id": 12,
+      "verification_mode": "type3",
+      "extractor": "capture_operator_from_circuit_input",
+      "reason": "Returns a matrix built from Operator.from_circuit(circ); capture the input circuit for ZX comparison."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 26,
+      "verification_mode": "type3",
+      "extractor": "dag_to_circuit",
+      "reason": "Returns DAGCircuit; convert with dag_to_circuit before ZX comparison."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 27,
+      "verification_mode": "type3",
+      "extractor": "dag_to_circuit",
+      "reason": "Returns DAGCircuit; convert with dag_to_circuit before ZX comparison."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 41,
+      "verification_mode": "not_applicable",
+      "expected_outcome": "NOT_APPLICABLE",
+      "reason": "Returns Operator, not a circuit object."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 73,
+      "verification_mode": "type3",
+      "extractor": "inplace_circuit_arg",
+      "arg_spec": {
+        "circuit": "dummy_qiskit_circuit",
+        "qubit": 0,
+        "clbit": 0
+      },
+      "reason": "Mutates the input circuit in place and returns None."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 86,
+      "verification_mode": "type3",
+      "extractor": "first_comparable_circuit",
+      "reason": "Returns multiple circuit results; compare the first circuit-like result."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 99,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "arg_spec": {
+        "circuit": "dummy_qiskit_parameter_removal_circuit"
+      },
+      "reason": "Requires the benchmark's rx(theta)-ry(0.2)-rz(phi) parameter-removal input so both sides are compared on the intended task semantics."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 105,
+      "verification_mode": "type3",
+      "extractor": "to_circuit",
+      "reason": "Returns CNOTDihedral; convert with to_circuit before ZX comparison."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 106,
+      "verification_mode": "type3",
+      "extractor": "to_circuit",
+      "reason": "Returns CNOTDihedral; convert with to_circuit before ZX comparison."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 108,
+      "verification_mode": "not_applicable",
+      "expected_outcome": "NOT_APPLICABLE",
+      "reason": "Returns Choi objects, not circuit objects."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 110,
+      "verification_mode": "type3",
+      "extractor": "all_comparable_circuits",
+      "arg_spec": {
+        "circuit": "dummy_qiskit_circuit",
+        "n": 3
+      },
+      "compare_to_input": 0,
+      "reason": "Returns qc_list; compare every returned circuit-like result against the input reference circuit using stable input arguments."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 117,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "arg_spec": {
+        "unitary": "fixed_2q_unitary"
+      },
+      "reason": "Requires a stable two-qubit unitary argument."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 120,
+      "verification_mode": "type3",
+      "extractor": "auto",
+      "arg_spec": {
+        "diag": [1, 1, -1, -1]
+      },
+      "reason": "Requires a stable diagonal vector argument."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 125,
+      "verification_mode": "type3",
+      "extractor": "instruction_to_circuit",
+      "arg_spec": {
+        "circ": "dummy_qiskit_circuit_nocbits"
+      },
+      "reason": "Returns Gate/Instruction; wrap into QuantumCircuit before ZX comparison."
+    },
+    {
+      "source_class": "type3",
+      "task_id": 126,
+      "verification_mode": "not_applicable",
+      "expected_outcome": "NOT_APPLICABLE",
+      "reason": "Returns process fidelity scalar, not a circuit object."
+    }
+  ]
+}

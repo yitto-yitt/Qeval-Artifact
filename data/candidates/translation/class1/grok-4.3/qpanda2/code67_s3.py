@@ -1,0 +1,24 @@
+# EVAL_META: task_id=67, framework=qpanda2, class=1
+from numpy import pi
+from pyqpanda import *
+
+def chsh_circuit(alice, bob):
+    machine = CPUQVM()
+    machine.init_qvm()
+    q = machine.qAlloc_many(2)
+    c = machine.cAlloc_many(2)
+    prog = create_empty_qprog()
+    prog.insert(H(q[0]))
+    prog.insert(CNOT(q[0], q[1]))
+    prog.insert(barrier({q[0], q[1]}))
+    if alice == 0:
+        prog.insert(RY(q[0], 0))
+    else:
+        prog.insert(RY(q[0], -pi / 2))
+    prog.insert(Measure(q[0], c[0]))
+    if bob == 0:
+        prog.insert(RY(q[1], -pi / 4))
+    else:
+        prog.insert(RY(q[1], pi / 4))
+    prog.insert(Measure(q[1], c[1]))
+    return prog

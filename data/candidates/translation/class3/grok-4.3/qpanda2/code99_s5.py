@@ -1,0 +1,15 @@
+# EVAL_META: task_id=99, framework=qpanda2, class=3
+from pyqpanda import *
+machine = CPUQVM()
+machine.init_qvm()
+q = machine.qAlloc_many(20)
+def remove_unassigned_parameterized_gates(circuit):
+    new_circuit = QCircuit()
+    for instruction in circuit:
+        if hasattr(instruction, 'params') and len(instruction.params) > 0:
+            if not (isinstance(instruction.params, var) or isinstance(instruction.params[0], var)):
+                new_circuit << instruction
+        else:
+            new_circuit << instruction
+    return new_circuit
+machine.finalize()

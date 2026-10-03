@@ -1,0 +1,18 @@
+# EVAL_META: task_id=66, framework=qpanda, class=2
+from numpy import arccos, sqrt
+from pyqpanda3.core import CPUQVM, QProg, RY, H, CNOT, X, measure
+
+
+def w_state():
+    circuit = QProg()
+    circuit << RY(0, 2 * arccos(1 / sqrt(3)))
+    circuit << H(1).control([0])
+    circuit << CNOT(1, 2)
+    circuit << CNOT(0, 1)
+    circuit << X(0)
+    for qubit in range(3):
+        circuit << measure(qubit, qubit)
+
+    simulator = CPUQVM()
+    simulator.run(circuit, 1)
+    return circuit

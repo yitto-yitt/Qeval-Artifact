@@ -1,0 +1,15 @@
+# EVAL_META: task_id=14, framework=qpanda, class=1
+from pyqpanda3.core import CPUQVM, QCircuit, QProg, H, CNOT, Measure
+
+def bell_each_shot():
+    qvm = CPUQVM()
+    qvm.init_qvm()
+    qubits = qvm.qAlloc_many(2)
+    cbits = qvm.cAlloc_many(2)
+    circuit = QCircuit()
+    circuit << H(qubits[0]) << CNOT(qubits[0], qubits[1])
+    prog = QProg()
+    prog << circuit << Measure(qubits[0], cbits[0]) << Measure(qubits[1], cbits[1])
+    counts = qvm.run_with_configuration(prog, cbits, 10)
+    total = sum(counts.values())
+    return {format(int(k), '02b'): v / total for k, v in counts.items()}

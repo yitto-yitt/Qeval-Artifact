@@ -1,0 +1,58 @@
+# EVAL_META: task_id=68, framework=pennylane, class=1
+import pennylane as qml
+import numpy as np
+
+def zeno_elitzur_vaidman_bomb_tester(bomb_live):
+    shots = 1024
+    cycles = 25
+    theta = np.pi / cycles
+
+    if not bomb_live:
+        dev = qml.device("default.qubit", wires=1, shots=shots)
+
+        @qml.qnode(dev)
+        def circuit():
+            for _ in range(cycles):
+                qml.RY(theta, wires=0)
+            return qml.sample(wires=0)
+
+        samples = np.asarray(circuit())
+        live_predictions = int(np.count_nonzero(samples == 0))
+        dud_predictions = int(np.count_nonzero(samples == 1))
+        detonations = 0
+
+        return {
+            "live_predictions": live_predictions / shots,
+            "dud_predictions": dud_predictions / shots,
+            "detonations": detonations / shots,
+        }
+
+    dev = qml.device("default.qubit", wires=3, shots=shots)
+
+    @qml.qnode(dev, mcm_method="one-shot")
+    def circuit():
+        for _ in range(cycles):
+            qml.RY(theta, wires=0)
+            m = qml.measure(0)
+
+            qml.measure(2, reset=True)
+            qml.cond(m, qml.PauliX)(wires=2)
+
+            a = qml.measure(1)
+            qml.cond(m & ~a, qml.PauliX)(wires=1)
+
+        return qml.sample(wires=[1, 2])
+
+    samples = np.asarray(circuit())
+    any_flag = samples[:, 0]
+    last_flag = samples[:, 1]
+
+    detonations = int(np.count_nonzero(last_flag == 1))
+    dud_predictions = int(np.sum((last_flag == 0) & (any_flag == 1)))
+    live_predictions = int(np.sum((last_flag == 0) & (any_flag == 0)))
+
+    return {
+        "live_predictions": live_predictions / shots,
+        "dud_predictions": dud_predictions / shots,
+        "detonations": detonations / shots,
+    }

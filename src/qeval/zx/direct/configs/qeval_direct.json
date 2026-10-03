@@ -1,0 +1,37 @@
+{
+  "classes": {
+    "type1": {
+      "output_label": "class1",
+      "script": "verifiers/type1_verify.py",
+      "std_dir": "../../../../data/references/direct/class1",
+      "outputs_dir": "../../../../data/candidates/direct/class1",
+      "pattern_a": "code{idx}.py",
+      "pattern_b": "code{idx}.py",
+      "report_csv": "class1-zx-report.csv",
+      "framework_a": "qiskit",
+      "frameworks": ["qiskit"]
+    },
+    "type2": {
+      "output_label": "class2",
+      "script": "verifiers/type2_verify.py",
+      "std_dir": "../../../../data/references/direct/class2",
+      "outputs_dir": "../../../../data/candidates/direct/class2",
+      "pattern_a": "code{idx}.py",
+      "pattern_b": "code{idx}.py",
+      "report_csv": "class2-zx-report.csv",
+      "framework_a": "qiskit",
+      "frameworks": ["qiskit"]
+    },
+    "type3": {
+      "output_label": "class3",
+      "script": "verifiers/type3_verify.py",
+      "std_dir": "../../../../data/references/direct/class3",
+      "outputs_dir": "../../../../data/candidates/direct/class3",
+      "pattern_a": "code{idx}.py",
+      "pattern_b": "code{idx}.py",
+      "report_csv": "class3-zx-report.csv",
+      "framework_a": "qiskit",
+      "frameworks": ["qiskit"]
+    }
+  }
+}

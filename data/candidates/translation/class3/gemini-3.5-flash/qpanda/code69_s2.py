@@ -1,0 +1,14 @@
+# EVAL_META: task_id=69, framework=qpanda, class=3
+from pyqpanda3.core import *
+
+_machine = CPUQuantumMachine()
+_machine.init_qvm()
+
+def create_quantum_circuit_based_h0_cs01_h1_csdg10():
+    q = _machine.qAlloc_many(2)
+    prog = QCircuit()
+    prog << H(q[0])
+    prog << S(q[1]).control([q[0]])
+    prog << H(q[1])
+    prog << S(q[0]).dagger().control([q[1]])
+    return prog

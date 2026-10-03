@@ -1,0 +1,11 @@
+# EVAL_META: task_id=49, framework=pennylane, class=3
+import pennylane as qml
+from pennylane.tape import QuantumScript
+
+def simple_elitzur_vaidman():
+    ops = [
+        qml.Hadamard(wires=0),
+        qml.CNOT(wires=[0, 1]),
+        qml.Hadamard(wires=0),
+    ]
+    return QuantumScript(ops)

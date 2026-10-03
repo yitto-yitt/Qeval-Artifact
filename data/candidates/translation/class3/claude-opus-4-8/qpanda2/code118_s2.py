@@ -1,0 +1,13 @@
+# EVAL_META: task_id=118, framework=qpanda2, class=3
+from pyqpanda import *
+
+machine = CPUQVM()
+machine.init_qvm()
+qubits = machine.qAlloc_many(4)
+
+def create_c3sx_circuit():
+    prog = QProg()
+    prog << C3SQRTSWAP(qubits[0], qubits[1], qubits[2], qubits[3])
+    return prog
+
+machine.finalize()

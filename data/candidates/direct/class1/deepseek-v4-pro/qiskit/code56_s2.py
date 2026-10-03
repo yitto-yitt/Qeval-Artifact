@@ -1,0 +1,21 @@
+# EVAL_META: task_id=56, framework=qiskit, class=1
+from qiskit import QuantumCircuit
+from qiskit_aer import AerSimulator
+
+def not_gate(a):
+    a &= 0xFF
+    qc = QuantumCircuit(8, 8)
+
+    for i in range(8):
+        if (a >> i) & 1:
+            qc.x(i)
+
+    qc.x(range(8))
+    qc.measure(range(8), range(8))
+
+    backend = AerSimulator()
+    job = backend.run(qc, shots=1024)
+    counts = job.result().get_counts(qc)
+
+    total = sum(counts.values())
+    return {bits: count / total for bits, count in counts.items()}

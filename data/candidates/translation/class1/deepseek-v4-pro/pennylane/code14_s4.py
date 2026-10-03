@@ -1,0 +1,19 @@
+# EVAL_META: task_id=14, framework=pennylane, class=1
+import pennylane as qml
+
+dev = qml.device("default.qubit", wires=2, shots=10)
+
+@qml.qnode(dev)
+def bell_circuit():
+    qml.Hadamard(wires=0)
+    qml.CNOT(wires=[0, 1])
+    return qml.sample(wires=[0, 1])
+
+def bell_each_shot():
+    samples = bell_circuit()
+    counts = {}
+    for sample in samples:
+        bitstring = ''.join(str(int(bit)) for bit in sample)
+        counts[bitstring] = counts.get(bitstring, 0) + 1
+    total = sum(counts.values())
+    return {key: value / total for key, value in counts.items()}

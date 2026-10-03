@@ -1,0 +1,4 @@
+-r requirements-direct.txt
+cirq
+pennylane
+pyqpanda3

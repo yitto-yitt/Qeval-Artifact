@@ -1,0 +1,31 @@
+# EVAL_META: task_id=37, framework=pennylane, class=1
+import pennylane as qml
+
+
+def bv_algorithm(s):
+    n = len(s)
+    ancilla = n
+    dev = qml.device("default.qubit", wires=n + 1, shots=1)
+
+    @qml.qnode(dev)
+    def circuit():
+        qml.PauliX(wires=ancilla)
+        for wire in range(n + 1):
+            qml.Hadamard(wires=wire)
+        for index, bit in enumerate(reversed(s)):
+            if bit == "1":
+                qml.CNOT(wires=[index, ancilla])
+        for wire in range(n):
+            qml.Hadamard(wires=wire)
+        return qml.sample(wires=range(n))
+
+    result = circuit()
+    samples = result.tolist()
+
+    if n == 1:
+        samples = [[samples[0]]]
+    elif samples and isinstance(samples[0], int):
+        samples = [samples]
+
+    bitstrings = ["".join(str(int(bit)) for bit in reversed(sample)) for sample in samples]
+    return [bitstrings, result]

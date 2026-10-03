@@ -1,0 +1,16 @@
+# EVAL_META: task_id=70, framework=qpanda2, class=3
+from pyqpanda import *
+import atexit
+
+machine = CPUQVM()
+machine.init_qvm()
+qubits = machine.qAlloc_many(3)
+atexit.register(machine.finalize)
+
+def create_quantum_circuit_based_h0_cswap012_h1_csdg10():
+    prog = QProg()
+    prog.insert(H(qubits[0]))
+    prog.insert(SWAP(qubits[1], qubits[2]).control([qubits[0]]))
+    prog.insert(H(qubits[1]))
+    prog.insert(S(qubits[0]).dagger().control([qubits[1]]))
+    return prog

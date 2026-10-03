@@ -1,0 +1,9 @@
+# EVAL_META: task_id=99, framework=pennylane, class=3
+import pennylane as qml
+
+def remove_unassigned_parameterized_gates(circuit):
+    new_ops = []
+    for op in circuit.operations:
+        if not (len(op.parameters) > 0 and isinstance(op.parameters[0], qml.numpy.tensor)):
+            new_ops.append(op)
+    return qml.tape.QuantumTape(new_ops, circuit.measurements)

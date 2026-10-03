@@ -1,0 +1,23 @@
+# EVAL_META: task_id=130, framework=qpanda2, class=3
+import pyqpanda as pq
+
+machine = pq.CPUQVM()
+machine.init_qvm()
+_q = machine.qAlloc_many(64)
+
+def inv_circuit(n):
+    qubits = _q[:n]
+    prog = pq.QProg()
+    for i in range(2):
+        prog << pq.H(qubits[i + 1])
+    for i in range(2):
+        prog << pq.CNOT(qubits[i + 1], qubits[i + 3])
+    inv_prog = pq.QProg()
+    inv_prog << pq.CNOT(qubits[2], qubits[4])
+    inv_prog << pq.CNOT(qubits[1], qubits[3])
+    inv_prog << pq.H(qubits[2])
+    inv_prog << pq.H(qubits[1])
+    machine.directly_run(inv_prog)
+    return inv_prog
+
+machine.finalize()

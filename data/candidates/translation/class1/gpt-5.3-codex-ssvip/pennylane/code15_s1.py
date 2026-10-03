@@ -1,0 +1,20 @@
+# EVAL_META: task_id=15, framework=pennylane, class=1
+import pennylane as qml
+import numpy as np
+
+def noisy_bell():
+    dev = qml.device("default.mixed", wires=2, shots=1000)
+
+    @qml.qnode(dev)
+    def circuit():
+        qml.Hadamard(wires=0)
+        qml.CNOT(wires=[0, 1])
+        qml.DepolarizingChannel(0.01, wires=0)
+        qml.DepolarizingChannel(0.015, wires=1)
+        qml.BitFlip(0.02, wires=0)
+        qml.BitFlip(0.025, wires=1)
+        return qml.counts(wires=[0, 1])
+
+    counts = circuit()
+    total = sum(counts.values())
+    return {k: v / total for k, v in counts.items()}

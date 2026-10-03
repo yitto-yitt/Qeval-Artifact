@@ -1,0 +1,19 @@
+# EVAL_META: task_id=99, framework=qiskit, class=3
+
+from qiskit.circuit import Parameter, QuantumCircuit
+
+def remove_unassigned_parameterized_gates(circuit):
+    circuit_data = circuit.data.copy()
+    circuit_without_params = QuantumCircuit(circuit.num_qubits, circuit.num_clbits)
+    
+    #for instr, qargs, cargs in circuit_data:
+    for instruction in circuit_data:
+        instr, qargs, cargs = instruction.operation, instruction.qubits, instruction.clbits
+        if not (isinstance(instr.params, Parameter) or 
+                isinstance(instr.params[0], Parameter)):
+            circuit_without_params.append(instr, qargs, cargs)
+
+    return circuit_without_params
+
+
+# ==================================================

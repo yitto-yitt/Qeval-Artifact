@@ -1,0 +1,11 @@
+# EVAL_META: task_id=109, framework=qiskit, class=3
+from qiskit import QuantumCircuit
+from qiskit.circuit import Parameter
+
+
+def circuit():
+    qc = QuantumCircuit(1)
+    theta = Parameter('θ')
+    qc.h(0)
+    qc.p(theta, 0)
+    return qc

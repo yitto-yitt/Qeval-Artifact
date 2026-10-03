@@ -1,0 +1,15 @@
+# EVAL_META: task_id=84, framework=qpanda2, class=3
+from pyqpanda import CPUQVM, QCircuit, U3
+
+machine = CPUQVM()
+machine.init_qvm()
+qubits = machine.qAlloc_many(2)
+
+def controlled_custom_unitary_circuit():
+    qc = QCircuit()
+    u3_gate = U3(qubits[1], 0.3, 0.2, 0.1)
+    controlled_gate = u3_gate.control([qubits[0]])
+    qc << controlled_gate
+    return qc
+
+machine.finalize()

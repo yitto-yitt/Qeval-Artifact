@@ -1,0 +1,21 @@
+# EVAL_META: task_id=120, framework=qiskit, class=3
+
+import math
+from qiskit import QuantumCircuit
+from qiskit.circuit.library import Diagonal
+
+def create_diagonal_circuit(diag):
+    """
+    Create a QuantumCircuit with a Diagonal gate applied to the qubits.
+    
+    Args:
+        diag (list): The diagonal elements.
+        
+    Returns:
+        QuantumCircuit: The quantum circuit with the Diagonal gate.
+    """
+    num_qubits = int(math.log2(len(diag)))
+    qc = QuantumCircuit(num_qubits)
+    diagonal_gate = Diagonal(diag)
+    qc.append(diagonal_gate, range(num_qubits))
+    return qc

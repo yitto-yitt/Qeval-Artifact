@@ -1,0 +1,39 @@
+# EVAL_META: task_id=14, framework=qiskit, class=1
+from qiskit import QuantumCircuit
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_aer import AerSimulator
+from qiskit.primitives import Sampler
+
+
+def bell_each_shot():
+    # Create a Phi+ Bell state circuit
+    qc = QuantumCircuit(2)
+    qc.h(0)
+    qc.cx(0, 1)
+    qc.measure_all()
+
+    # Get Aer simulator backend
+    backend = AerSimulator()
+
+    # Transpile the circuit with optimization level 1
+    pm = generate_preset_pass_manager(optimization_level=1, backend=backend)
+    transpiled_circuit = pm.run(qc)
+
+    # Run with Sampler primitive for 10 shots
+    sampler = Sampler(backend=backend)
+    result = sampler.run(transpiled_circuit, shots=10).result()
+    
+    # Extract the quasi-probabilities and convert to counts-like dictionary
+    # Since we want actual shot results, we need to sample from the distribution
+    # However, Sampler returns quasi-distribution; for actual shots, we'll use the circuit directly with the backend
+    
+    # Actually run the circuit on the simulator with shots
+    from qiskit import execute
+    job = execute(transpiled_circuit, backend, shots=10)
+    counts = job.result().get_counts()
+    
+    # Convert counts to probability distribution
+    total_shots = sum(counts.values())
+    prob_dist = {bitstring: count/total_shots for bitstring, count in counts.items()}
+    
+    return prob_dist

@@ -1,0 +1,7 @@
+# EVAL_META: task_id=118, framework=qpanda, class=3
+from pyqpanda3.core import QuantumCircuit, SX
+
+def create_c3sx_circuit():
+    qc = QuantumCircuit(4)
+    qc.append(SX.control(3), [0, 1, 2, 3])
+    return qc

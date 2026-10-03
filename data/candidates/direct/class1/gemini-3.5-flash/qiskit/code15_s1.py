@@ -1,0 +1,35 @@
+# EVAL_META: task_id=15, framework=qiskit, class=1
+
+from qiskit import QuantumCircuit
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_aer import AerSimulator
+from qiskit_ibm_runtime.fake_provider import FakeManilaV2
+from qiskit_ibm_runtime import SamplerV2
+
+def noisy_bell():
+    # Create a Bell circuit
+    qc = QuantumCircuit(2)
+    qc.h(0)
+    qc.cx(0, 1)
+    qc.measure_all()
+    
+    # Create Aer simulator from fake backend
+    fake_backend = FakeManilaV2()
+    backend = AerSimulator.from_backend(fake_backend)
+    
+    # Transpile using preset pass manager at optimization level 1
+    pm = generate_preset_pass_manager(optimization_level=1, backend=backend)
+    isa_circuit = pm.run(qc)
+    
+    # Run with Qiskit Runtime Sampler
+    sampler = SamplerV2(backend=backend)
+    job = sampler.run([isa_circuit])
+    result = job.result()
+    
+    # Get the execution result as a probability distribution dict
+    pub_result = result[0]
+    counts = pub_result.data.meas.get_counts()
+    total_shots = sum(counts.values())
+    probabilities = {bitstr: count / total_shots for bitstr, count in counts.items()}
+    
+    return probabilities

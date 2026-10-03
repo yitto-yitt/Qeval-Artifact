@@ -1,0 +1,14 @@
+# EVAL_META: task_id=23, framework=qpanda2, class=3
+from pyqpanda import *
+import atexit
+
+machine = CPUQVM()
+machine.init_qvm()
+q = machine.qAlloc_many(3)
+
+def dj_constant_oracle():
+    oracle = QCircuit()
+    oracle << X(q[2])
+    return oracle
+
+atexit.register(machine.finalize)

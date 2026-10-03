@@ -1,0 +1,25 @@
+# EVAL_META: task_id=15, framework=qiskit, class=1
+from qiskit import QuantumCircuit
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_aer import AerSimulator
+from qiskit_ibm_runtime import SamplerV2 as Sampler
+from qiskit_ibm_runtime.fake_provider import FakeManilaV2
+
+def noisy_bell():
+    qc = QuantumCircuit(2)
+    qc.h(0)
+    qc.cx(0, 1)
+    qc.measure_all()
+
+    fake_backend = FakeManilaV2()
+    aer_backend = AerSimulator.from_backend(fake_backend)
+
+    pm = generate_preset_pass_manager(optimization_level=1, backend=fake_backend)
+    isa_circuit = pm.run(qc)
+
+    sampler = Sampler(mode=aer_backend)
+    job = sampler.run([isa_circuit], shots=4096)
+    result = job.result()
+    counts = result[0].data.meas.get_counts()
+    total = sum(counts.values())
+    return {k: v / total for k, v in counts.items()}

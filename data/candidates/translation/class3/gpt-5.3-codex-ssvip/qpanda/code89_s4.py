@@ -1,0 +1,10 @@
+# EVAL_META: task_id=89, framework=qpanda, class=3
+from pyqpanda3.core import *
+
+def create_controlled_hgate():
+    machine = CPUQVM()
+    machine.init_qvm()
+    q = machine.qAlloc_many(3)
+    prog = QProg()
+    prog.insert(CH(q[0], q[2]).control([q[1]]))
+    return prog

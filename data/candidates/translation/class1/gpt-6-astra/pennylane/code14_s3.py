@@ -1,0 +1,18 @@
+# EVAL_META: task_id=14, framework=pennylane, class=1
+import pennylane as qml
+
+
+def bell_each_shot():
+    device = qml.device("default.qubit", wires=2)
+
+    @qml.set_shots(shots=10)
+    @qml.qnode(device)
+    @qml.compile
+    def bell():
+        qml.Hadamard(wires=0)
+        qml.CNOT(wires=[0, 1])
+        return qml.counts(wires=[1, 0])
+
+    counts = bell()
+    total = sum(int(value) for value in counts.values())
+    return {key: int(value) / total for key, value in counts.items()}

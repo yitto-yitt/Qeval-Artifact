@@ -1,0 +1,13 @@
+# EVAL_META: task_id=70, framework=qiskit, class=3
+from qiskit import QuantumCircuit, QuantumRegister
+from qiskit.circuit.library import CSwapGate, CSdgGate
+
+
+def create_quantum_circuit_based_h0_cswap012_h1_csdg10():
+    qr = QuantumRegister(3, 'q')
+    qc = QuantumCircuit(qr)
+    qc.h(0)
+    qc.append(CSwapGate(), [0, 1, 2])
+    qc.h(1)
+    qc.append(CSdgGate(), [1, 0])
+    return qc

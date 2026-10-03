@@ -1,0 +1,15 @@
+# EVAL_META: task_id=59, framework=qpanda, class=3
+import pyqpanda3.core as pq
+
+def create_cz_gate():
+    qvm = pq.QVM()
+    qvm.init_qvm()
+    qubits = qvm.qAlloc_many(2)
+    
+    prog = pq.QProg()
+    prog.insert(pq.H(qubits[1]))
+    prog.insert(pq.CNOT(qubits[0], qubits[1]))
+    prog.insert(pq.H(qubits[1]))
+    
+    qvm.finalize()
+    return prog

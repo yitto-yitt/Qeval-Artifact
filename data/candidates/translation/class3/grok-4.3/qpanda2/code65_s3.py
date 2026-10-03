@@ -1,0 +1,25 @@
+# EVAL_META: task_id=65, framework=qpanda2, class=3
+from pyqpanda import *
+from numpy import pi
+machine = CPUQVM()
+machine.init_qvm()
+qubits = machine.qAlloc_many(20)
+def QFT(n):
+    circuit = QCircuit()
+    def swap_registers(circuit, n):
+        for qubit in range(n//2):
+            circuit << SWAP(qubits[qubit], qubits[n-qubit-1])
+        return circuit
+    def qft_rotations(circuit, n):
+        """Performs qft on the first n qubits in circuit (without swaps)"""
+        if n == 0:
+            return circuit
+        n -= 1
+        circuit << H(qubits[n])
+        for qubit in range(n):
+            circuit << CR(qubits[qubit], qubits[n], pi/2**(n-qubit))
+        qft_rotations(circuit, n)
+    qft_rotations(circuit, n)
+    swap_registers(circuit, n)
+    return circuit
+machine.finalize()

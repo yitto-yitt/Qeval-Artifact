@@ -1,0 +1,17 @@
+# EVAL_META: task_id=27, framework=qpanda, class=3
+from pyqpanda3.core import *
+
+
+def apply_op_back():
+    qvm = CPUQVM()
+    if hasattr(qvm, "init_qvm"):
+        qvm.init_qvm()
+    q = qvm.qAlloc_many(3)
+    qvm.cAlloc_many(3)
+
+    prog = QProg()
+    prog << H(q[0])
+    prog << CNOT(q[0], q[1])
+    prog << H(q[0])
+
+    return prog

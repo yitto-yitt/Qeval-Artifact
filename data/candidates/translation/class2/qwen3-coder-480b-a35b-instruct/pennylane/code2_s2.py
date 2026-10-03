@@ -1,0 +1,16 @@
+# EVAL_META: task_id=2, framework=pennylane, class=2
+import pennylane as qml
+import numpy as np
+
+
+def create_bell_statevector():
+    dev = qml.device('default.qubit', wires=2)
+    
+    @qml.qnode(dev)
+    def bell_circuit():
+        qml.Hadamard(wires=0)
+        qml.CNOT(wires=[0, 1])
+        return qml.state()
+    
+    state_vector = bell_circuit()
+    return state_vector
